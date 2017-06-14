@@ -1,4 +1,4 @@
-package main.com.ljc.bbs.controller;
+package ljc.bbs.controller;
 
 /**
  * Created by Aaron on 2017/5/31 0031.
