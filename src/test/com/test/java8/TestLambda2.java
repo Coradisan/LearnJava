@@ -91,18 +91,20 @@ public class TestLambda2 {
     @Test
     public void test4() {
         //接口实现类myFunc1
-        MyFunc myFunc1 = new MyFunc<Integer>() {
+        Integer num = operation(12, new MyFunc<Integer>() {
             @Override
-            public Integer getValue(Integer x) {
-                return x * x;
+            public Integer getValue(Integer o) {
+                return o * o;
             }
-        };
-        Integer i1 = myFunc1.getValue(12);
-        System.out.println(i1);
+        });
+        System.out.println(num);
 
         //接口实现类myFunc2
-        MyFunc<Integer> myFunc2 = (x) -> x * x;
-        Integer i2 = myFunc2.getValue(12);
-        System.out.println(i2);
+        Integer num1 = operation(12, (x) -> x * x);
+        System.out.println(num1);
+    }
+
+    public Integer operation(Integer num, MyFunc<Integer> func) {
+        return func.getValue(num);
     }
 }
