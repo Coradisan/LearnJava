@@ -1,6 +1,5 @@
-package test.java8;
+package test.java8.lambda;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import org.junit.Test;
 
 import java.util.*;

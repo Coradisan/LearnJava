@@ -1,4 +1,4 @@
-package test.java8;
+package test.java8.lambda;
 
 /**
  * Created by Aaron on 2017/6/16 0016.
