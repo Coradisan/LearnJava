@@ -15,7 +15,9 @@ public class TestLambdaExer {
             new Employee("liu", 15, 12000),
             new Employee("jia", 18, 12000),
             new Employee("chen", 28, 42000),
-            new Employee("oc", 16, 20000)
+            new Employee("oc", 16, 20000),
+            new Employee("123", 16, 132222)
+
     );
 
     //1.先按salary 在按照age 排序
