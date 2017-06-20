@@ -3,9 +3,9 @@ package test.java8.stream;
 import org.junit.Test;
 import test.java8.lambda.Employee;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.xml.transform.Source;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TestStreamAPI1 {
@@ -82,4 +82,63 @@ public class TestStreamAPI1 {
         return lists.stream();
     }
 
+
+    @Test
+    public void test4() {
+        employees.stream().sorted((x, y) -> {
+            if (x.getAge().equals(y.getAge())) {
+                return Integer.compare(x.getSalary(), y.getSalary());
+            } else
+                return Integer.compare(x.getAge(), y.getAge());
+        }).forEach(System.out::println);
+
+    }
+
+    @Test
+    public void test5() {
+        Optional<Integer> op = employees
+                .stream()
+                .map((e) -> e.getSalary())
+                .reduce(Integer::sum);
+        System.out.println(op.get());
+    }
+
+
+    @Test
+    public void test6() {
+        System.out.println("=================toList==============================");
+
+        employees.stream()
+                .map((e) -> e.getSalary())
+                .collect(Collectors.toList()).forEach(System.out::println);
+
+        System.out.println("===================toSet============================");
+
+        employees.stream()
+                .map((e) -> e.getSalary())
+                .collect(Collectors.toSet()).forEach(System.out::println);
+
+        System.out.println("====================toCollection===========================");
+
+        employees.stream()
+                .map((e) -> e.getSalary())
+                .collect(Collectors.toCollection(HashSet::new)).forEach(System.out::println);
+
+        System.out.println("================分组===============================");
+
+        Map hashMap = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getSalary));
+        System.out.println(hashMap.toString());
+        System.out.println("===============================================");
+    }
+
+    /**
+     * map reduce做统计
+     */
+    @Test
+    public void test7() {
+        Optional<Integer> op = employees.stream().map((e) -> 1).reduce(Integer::sum);
+        System.out.println(op.get());
+
+    }
 }
