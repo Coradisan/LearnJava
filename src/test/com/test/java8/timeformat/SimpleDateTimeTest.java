@@ -1,6 +1,8 @@
 package test.java8.timeformat;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,8 +32,7 @@ public class SimpleDateTimeTest {
             System.out.println(future.get());
         }
     }*/
-
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    /*public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         ExecutorService pool = Executors.newFixedThreadPool(10);
 
@@ -50,6 +51,32 @@ public class SimpleDateTimeTest {
         for (Future<Date> future : results) {
             System.out.println(future.get());
         }
+        pool.shutdown();
+    }*/
+
+
+    //新API多线程无安全问题
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        ExecutorService pool = Executors.newFixedThreadPool(10);
+
+        Callable<LocalDate> task = new Callable<LocalDate>() {
+            @Override
+            public LocalDate call() throws Exception {
+                return LocalDate.parse("20161212", sdf);
+            }
+        };
+
+        List<Future<LocalDate>> results = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            results.add(pool.submit(task));
+        }
+
+        for (Future<LocalDate> future : results) {
+            System.out.println(future.get());
+        }
+
         pool.shutdown();
     }
 }
